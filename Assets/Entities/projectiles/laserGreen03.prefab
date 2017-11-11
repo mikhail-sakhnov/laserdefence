@@ -22,8 +22,9 @@ GameObject:
   - component: {fileID: 212692151568240578}
   - component: {fileID: 50540425178314488}
   - component: {fileID: 61743815762275426}
-  m_Layer: 0
-  m_Name: laserGreen02
+  - component: {fileID: 114163641875139094}
+  m_Layer: 9
+  m_Name: laserGreen03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1467842580972346}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -4.057279, y: -2.7876537, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,15 +79,28 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.13, y: 0.57}
+    oldSize: {x: 0.13, y: 0.37}
     newSize: {x: 0.13, y: 0.57}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.13, y: 0.57}
+  m_Size: {x: 0.13, y: 0.37}
   m_EdgeRadius: 0
+--- !u!114 &114163641875139094
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1467842580972346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83a0910e1678849d1a0d68f20c251b99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 75
+  sound: {fileID: 8300000, guid: ec359d8563c9f416d916d9f208a5abed, type: 3}
 --- !u!212 &212692151568240578
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -119,7 +133,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 91a63aa811cd445338f3779c040c8470, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 06f714f58c23748d2a14baf4a4a5d24d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

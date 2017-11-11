@@ -18,11 +18,7 @@ public class EnemySpawner : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        foreach (Transform child in transform)
-        {
-            GameObject enemy = Instantiate(enemyPrefab, child.transform.position, Quaternion.identity) as GameObject;
-            enemy.transform.parent = child;
-        }
+        spawnEnemies();
         float distance = transform.position.z - Camera.main.transform.position.z;
         Vector3 rightMost = Camera.main.ViewportToWorldPoint(new Vector3(1f, 0f, distance));
         Vector3 leftMost = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0f, distance));
@@ -34,6 +30,21 @@ public class EnemySpawner : MonoBehaviour
         {
             direction = -1;
         }
+    }
+
+    private void spawnEnemies()
+    {
+        foreach (Transform child in transform)
+        {
+            spawnEnemy(child);
+        
+        }
+    }
+
+    private void spawnEnemy(Transform parent)
+    {
+        GameObject enemy = Instantiate(enemyPrefab, parent.transform.position, Quaternion.identity) as GameObject;
+        enemy.transform.parent = parent;
     }
 
     private void OnDrawGizmos()
@@ -49,10 +60,57 @@ public class EnemySpawner : MonoBehaviour
         transform.position += new Vector3(speed, 0f, 0f) * Time.deltaTime * direction;
         float leftEdge = transform.position.x - (0.5f * width);
         float rightEdge = transform.position.x + (0.5f * width);
+        
         if ((rightEdge > xmax && direction == 1) || (leftEdge < xmin && direction == -1))
         {
             direction = direction * -1;
         }
-        
+
+        if (AllMembersDead())
+        {
+            SpawnUntilFull();
+
+        }
+
+    }
+
+    Transform NextFreePosition()
+    {
+        foreach (Transform position in transform)
+        {
+            if (position.childCount == 0)
+            {
+                return position;
+            }
+        }
+        return null;
+    }
+
+    void SpawnUntilFull()
+    {
+        Transform freePosition = NextFreePosition();
+        if (freePosition)
+        {
+             spawnEnemy(freePosition);
+            
+        }
+        if (NextFreePosition())
+        {
+            Invoke("SpawnUntilFull", 0.5f);
+            
+        }
+
+    }
+
+    Boolean AllMembersDead()
+    {
+        foreach (Transform childPositionGameObject in transform)
+        {
+            if (childPositionGameObject.childCount != 0)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

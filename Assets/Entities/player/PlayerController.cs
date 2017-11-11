@@ -8,13 +8,12 @@ public class PlayerController : MonoBehaviour
     private float xmin = -5;
     private float xmax = 5;
 
-
+    public float health = 300;
     public float speed = 15f;
     public float padding = 1;
     public float projectileSpeed = 10f;
     public float fireRate = 0.2f;
     public GameObject projectilePrefab;
-
 
     // Use this for initialization
     void Start()
@@ -59,5 +58,30 @@ public class PlayerController : MonoBehaviour
     {
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity) as GameObject;
         projectile.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, projectileSpeed);
+    }
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+		
+
+        Projectile missile = other.gameObject.GetComponent<Projectile>();
+        if (missile != null)
+        {
+			
+            Debug.Log("Boom");
+            missile.Hit();
+            health -= missile.GetDamage();
+            Debug.Log("HEALTH" +  health);
+            if (health <= 0)
+            {
+                Boom();
+            }
+        }
+    }
+
+    void Boom()
+    {   
+        Destroy(gameObject);
+        GameObject.Find("LevelManager").GetComponent<LevelManager>().LoadLevel("Die screen");
     }
 }
